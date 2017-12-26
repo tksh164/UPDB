@@ -7,14 +7,14 @@ GO
 
 CREATE DATABASE UpdateProgramDB ON PRIMARY (
     NAME       = N'UpdateProgramDB',
-	FILENAME   = N'D:\Temp\UpdateProgram\db\UpdateProgramDB.mdf',
-	SIZE       = 500MB,
-	FILEGROWTH = 10MB
+    FILENAME   = N'D:\Temp\UpdateProgram\db\UpdateProgramDB.mdf',
+    SIZE       = 500MB,
+    FILEGROWTH = 10MB
 ) LOG ON (
     NAME       = N'UpdateProgramDB_log',
-	FILENAME   = N'D:\Temp\UpdateProgram\db\UpdateProgramDB_log.ldf',
-	SIZE       = 500MB,
-	FILEGROWTH = 10%
+    FILENAME   = N'D:\Temp\UpdateProgram\db\UpdateProgramDB_log.ldf',
+    SIZE       = 500MB,
+    FILEGROWTH = 10%
 )
 GO
 
