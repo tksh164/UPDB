@@ -750,9 +750,10 @@ CREATE NONCLUSTERED INDEX index_ClassificationId ON Logs
 ) INCLUDE (
     Id,
     TimestampUtc,
-    ProcessTargetId,
+    Source,
     Message,
-    Data
+    Data,
+    ProcessTargetId
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -764,9 +765,10 @@ CREATE NONCLUSTERED INDEX index_Message ON Logs
 ) INCLUDE (
     Id,
     TimestampUtc,
-    ProcessTargetId,
+    Source,
     ClassificationId,
-    Data
+    Data,
+    ProcessTargetId
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -778,6 +780,7 @@ CREATE NONCLUSTERED INDEX index_ProcessTargetId ON Logs
 ) INCLUDE (
     Id,
     TimestampUtc,
+    Source,
     ClassificationId,
     Message,
     Data
