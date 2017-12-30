@@ -675,7 +675,7 @@ CREATE NONCLUSTERED INDEX index_AdditionalData ON ProcessTargets
 CREATE TABLE LogClassifications
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT UNIQUE,
 
     -- The display name of the classification.
     DisplayName NVARCHAR(8) NOT NULL,
