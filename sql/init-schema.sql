@@ -688,6 +688,11 @@ CREATE TABLE LogClassifications
 )
 GO
 
+INSERT INTO LogClassifications VALUES ( 0, 'Information' )
+INSERT INTO LogClassifications VALUES ( 1, 'Warning' )
+INSERT INTO LogClassifications VALUES ( 2, 'Error' )
+INSERT INTO LogClassifications VALUES ( 3, 'Debug' )
+
 --
 -- The application log store table.
 --
