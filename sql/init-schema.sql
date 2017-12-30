@@ -728,6 +728,21 @@ CREATE TABLE Logs
 )
 GO
 
+-- Index for Source
+CREATE NONCLUSTERED INDEX index_Source ON Logs
+(
+    Source ASC
+) INCLUDE (
+    Id,
+    TimestampUtc,
+    ClassificationId,
+    Message,
+    Data,
+    ProcessTargetId
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 -- Index for ClassificationId
 CREATE NONCLUSTERED INDEX index_ClassificationId ON Logs
 (
