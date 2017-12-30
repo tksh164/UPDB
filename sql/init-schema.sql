@@ -678,7 +678,7 @@ CREATE TABLE LogClassifications
     Id SMALLINT UNIQUE,
 
     -- The display name of the classification.
-    DisplayName NVARCHAR(8) NOT NULL,
+    DisplayName NVARCHAR(12) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
         Id ASC
