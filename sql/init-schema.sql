@@ -705,8 +705,8 @@ CREATE TABLE Logs
     -- The timestamp of the log record as UTC.
     TimestampUtc DATETIME2(0) NOT NULL,
 
-    -- The source of log.
-    Message NVARCHAR(20) NOT NULL,
+    -- The process target ID.
+    ProcessTargetId INT FOREIGN KEY REFERENCES ProcessTargets (Id),
 
     -- The classification of the log record.
     ClassificationId SMALLINT FOREIGN KEY REFERENCES LogClassifications (Id),
@@ -715,10 +715,7 @@ CREATE TABLE Logs
     Message NVARCHAR(400) NOT NULL,
 
     -- The log data.
-    Data NVARCHAR(4000) NOT NULL DEFAULT N'',
-
-    -- The process target ID. This may NULL, for example, the log is generated before the process target insertion.
-    ProcessTargetId INT
+    Data NVARCHAR(4000) NOT NULL DEFAULT N''
 
     PRIMARY KEY CLUSTERED (
         TimestampUtc ASC
