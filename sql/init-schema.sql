@@ -788,7 +788,7 @@ CREATE NONCLUSTERED INDEX index_ProcessedDate ON UpdateProgramPackageHistories
 CREATE TABLE ProcessTargets
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The file path to the process target file.
     FilePath NVARCHAR(4000) NOT NULL,
