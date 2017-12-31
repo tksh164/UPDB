@@ -85,7 +85,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageReleaseTypes
 CREATE TABLE UpdateProgramPackageRestartTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the restart type.
     Name NVARCHAR(16) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE UpdateProgramPackageRestartTypes
     DisplayName NVARCHAR(16) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -102,6 +102,17 @@ CREATE TABLE UpdateProgramPackageRestartTypes
 GO
 
 INSERT INTO UpdateProgramPackageRestartTypes VALUES ( 'possible', 'Possible' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageRestartTypes
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The architectures that retrieved from the 'processorArchitecture' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
