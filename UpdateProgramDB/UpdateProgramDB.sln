@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetPreparator", "TargetPreparator\TargetPreparator.csproj", "{6D64E4CE-BD3A-4F3B-AB48-819B06D81B15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{ACCD01C1-1CF5-45BB-9164-C5FE9CCEBC4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6D64E4CE-BD3A-4F3B-AB48-819B06D81B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D64E4CE-BD3A-4F3B-AB48-819B06D81B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D64E4CE-BD3A-4F3B-AB48-819B06D81B15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACCD01C1-1CF5-45BB-9164-C5FE9CCEBC4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACCD01C1-1CF5-45BB-9164-C5FE9CCEBC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACCD01C1-1CF5-45BB-9164-C5FE9CCEBC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCD01C1-1CF5-45BB-9164-C5FE9CCEBC4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
