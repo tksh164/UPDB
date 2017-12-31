@@ -686,8 +686,11 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileProcessorArchitectures
 CREATE TABLE ModuleFiles
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE
+    Id INT IDENTITY(0, 1),
 
+    PRIMARY KEY CLUSTERED (
+        Id ASC
+    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
