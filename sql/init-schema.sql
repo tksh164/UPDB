@@ -732,7 +732,7 @@ CREATE TABLE UpdateProgramPackageHistories
     Id INT IDENTITY(0, 1),
 
     -- The update program package ID.
-    UpdateProgramPackageId INT FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
+    UpdateProgramPackageId INT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
 
     -- The date of processed.
     ProcessedDate DATE NOT NULL,
