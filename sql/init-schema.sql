@@ -708,14 +708,19 @@ CREATE TABLE UpdateProgramPackage_ModuleFiles
     -- The module file ID.
     ModuleFileId INT FOREIGN KEY REFERENCES ModuleFiles (Id),
 
-    UNIQUE CLUSTERED (
-        UpdateProgramPackageId ASC,
-        ModuleFileId           ASC
-    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_UpdateProgramPackageId_ModuleFileId ON UpdateProgramPackage_ModuleFiles
+(
+    UpdateProgramPackageId ASC,
+    ModuleFileId ASC
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The processed update program package histories.
