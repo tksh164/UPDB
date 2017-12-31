@@ -201,7 +201,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyAppli
 CREATE TABLE UpdateProgramPackagePropertyCompanies
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the company.
     Name NVARCHAR(25) NOT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE UpdateProgramPackagePropertyCompanies
     DisplayName NVARCHAR(25) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -218,6 +218,17 @@ CREATE TABLE UpdateProgramPackagePropertyCompanies
 GO
 
 INSERT INTO UpdateProgramPackagePropertyCompanies VALUES ( 'Microsoft Corporation', 'Microsoft Corporation' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyCompanies
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The installation types that retrieved from the property file in the update program package file.
