@@ -34,7 +34,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageTypes
 (
     Name ASC
 ) INCLUDE (
-	Id,
+    Id,
     DisplayName
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -72,7 +72,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageReleaseTypes
 (
     Name ASC
 ) INCLUDE (
-	Id,
+    Id,
     DisplayName
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -108,7 +108,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageRestartTypes
 (
     Name ASC
 ) INCLUDE (
-	Id,
+    Id,
     DisplayName
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -147,7 +147,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageAssemblyIdent
 (
     Name ASC
 ) INCLUDE (
-	Id,
+    Id,
     DisplayName
 ) WITH (
     DATA_COMPRESSION = PAGE
