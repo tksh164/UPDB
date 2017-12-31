@@ -25,7 +25,7 @@ namespace UpdateProgramDB.Models
         [StringLength(400)]
         public string Message { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         [StringLength(4000)]
         public string Data { get; set; }
 

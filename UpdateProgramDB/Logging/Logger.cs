@@ -34,7 +34,7 @@ namespace UpdateProgramDB.Logging
                     Source = Assembly.GetEntryAssembly().GetName().Name,
                     ClassificationId = (short)logClassification,
                     Message = message,
-                    Data = data,
+                    Data = data ?? string.Empty,
                 });
 
                 db.SaveChanges();
