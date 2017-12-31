@@ -9,6 +9,8 @@ namespace UpdateProgramDB.Models
         {
         }
 
+        public virtual DbSet<Log> Logs { get; set; }
+
         public virtual DbSet<ProcessTarget> ProcessTargets { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
