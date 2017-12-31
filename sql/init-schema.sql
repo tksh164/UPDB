@@ -463,7 +463,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProdu
 CREATE TABLE UpdateProgramPackages
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The file hash of the package file.
     FileHash BINARY(20) UNIQUE NOT NULL,
@@ -547,7 +547,11 @@ CREATE TABLE UpdateProgramPackages
     PropertyProductNameId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProductNames (Id),
 
     -- The support link that retrieved from the 'Support Link' in the package property file.
-    PropertySupportLink NVARCHAR(256)
+    PropertySupportLink NVARCHAR(256),
+
+    PRIMARY KEY CLUSTERED (
+        Id ASC
+    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
