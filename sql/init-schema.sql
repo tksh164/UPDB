@@ -47,7 +47,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageTypes
 CREATE TABLE UpdateProgramPackageReleaseTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the release type.
     Name NVARCHAR(16) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE UpdateProgramPackageReleaseTypes
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -66,6 +66,17 @@ GO
 INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Hotfix', 'Hotfix' )
 INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Update', 'Update' )
 INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Security Update', 'Security Update' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageReleaseTypes
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The restart types that retrieved from the 'restart' attribute of the 'package' element in update.mum file in the update program package file.
