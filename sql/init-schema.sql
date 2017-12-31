@@ -878,7 +878,7 @@ INSERT INTO LogClassifications VALUES ( 3, 'Debug' )
 CREATE TABLE Logs
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The timestamp of the log record as UTC.
     TimestampUtc DATETIME2(0) NOT NULL,
@@ -899,12 +899,27 @@ CREATE TABLE Logs
     ProcessTargetId INT
 
     PRIMARY KEY CLUSTERED (
-        TimestampUtc ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for TimestampUtc
+CREATE NONCLUSTERED INDEX index_TimestampUtc ON Logs
+(
+    TimestampUtc ASC
+) INCLUDE (
+    Id,
+    Source,
+    ClassificationId,
+    Message,
+    Data,
+    ProcessTargetId
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 -- Index for Source
 CREATE NONCLUSTERED INDEX index_Source ON Logs
