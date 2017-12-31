@@ -675,10 +675,10 @@ CREATE NONCLUSTERED INDEX index_AdditionalData ON ProcessTargets
 CREATE TABLE LogClassifications
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT UNIQUE,
 
     -- The display name of the classification.
-    DisplayName NVARCHAR(8) NOT NULL,
+    DisplayName NVARCHAR(12) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
         Id ASC
@@ -687,6 +687,11 @@ CREATE TABLE LogClassifications
     DATA_COMPRESSION = PAGE
 )
 GO
+
+INSERT INTO LogClassifications VALUES ( 0, 'Information' )
+INSERT INTO LogClassifications VALUES ( 1, 'Warning' )
+INSERT INTO LogClassifications VALUES ( 2, 'Error' )
+INSERT INTO LogClassifications VALUES ( 3, 'Debug' )
 
 --
 -- The application log store table.
@@ -700,8 +705,8 @@ CREATE TABLE Logs
     -- The timestamp of the log record as UTC.
     TimestampUtc DATETIME2(0) NOT NULL,
 
-    -- The process target ID.
-    ProcessTargetId INT FOREIGN KEY REFERENCES ProcessTargets (Id),
+    -- The source of log. 
+    Source NVARCHAR(20) NOT NULL, 
 
     -- The classification of the log record.
     ClassificationId SMALLINT FOREIGN KEY REFERENCES LogClassifications (Id),
@@ -710,7 +715,10 @@ CREATE TABLE Logs
     Message NVARCHAR(400) NOT NULL,
 
     -- The log data.
-    Data NVARCHAR(4000) NOT NULL DEFAULT N''
+    Data NVARCHAR(4000) NOT NULL DEFAULT N'',
+
+    -- The process target ID. This may NULL, for example, the log is generated before the process target insertion. 
+    ProcessTargetId INT
 
     PRIMARY KEY CLUSTERED (
         TimestampUtc ASC
@@ -720,16 +728,17 @@ CREATE TABLE Logs
 )
 GO
 
--- Index for ProcessTargetId
-CREATE NONCLUSTERED INDEX index_ProcessTargetId ON Logs
+-- Index for Source
+CREATE NONCLUSTERED INDEX index_Source ON Logs
 (
-    ProcessTargetId ASC
+    Source ASC
 ) INCLUDE (
     Id,
     TimestampUtc,
     ClassificationId,
     Message,
-    Data
+    Data,
+    ProcessTargetId
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -741,9 +750,10 @@ CREATE NONCLUSTERED INDEX index_ClassificationId ON Logs
 ) INCLUDE (
     Id,
     TimestampUtc,
-    ProcessTargetId,
+    Source,
     Message,
-    Data
+    Data,
+    ProcessTargetId
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -755,8 +765,24 @@ CREATE NONCLUSTERED INDEX index_Message ON Logs
 ) INCLUDE (
     Id,
     TimestampUtc,
-    ProcessTargetId,
+    Source,
     ClassificationId,
+    Data,
+    ProcessTargetId
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
+-- Index for ProcessTargetId
+CREATE NONCLUSTERED INDEX index_ProcessTargetId ON Logs
+(
+    ProcessTargetId ASC
+) INCLUDE (
+    Id,
+    TimestampUtc,
+    Source,
+    ClassificationId,
+    Message,
     Data
 ) WITH (
     DATA_COMPRESSION = PAGE
