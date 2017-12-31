@@ -383,7 +383,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyPacka
 CREATE TABLE UpdateProgramPackagePropertyProcessorArchitectures
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the architecture.
     Name NVARCHAR(8) NOT NULL,
@@ -392,7 +392,7 @@ CREATE TABLE UpdateProgramPackagePropertyProcessorArchitectures
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -403,6 +403,17 @@ INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'x86', '
 INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'amd64', 'AMD64' )
 INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'ia64', 'IA64' )
 INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'arm', 'ARM' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProcessorArchitectures
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The product names that retrieved from the property file in the update program package file.
