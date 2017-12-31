@@ -8,7 +8,7 @@ GO
 CREATE TABLE UpdateProgramPackageTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the package type.
     Name NVARCHAR(16) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE UpdateProgramPackageTypes
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -29,6 +29,17 @@ INSERT INTO UpdateProgramPackageTypes VALUES ( 'MSI', 'Windows Installer Package
 INSERT INTO UpdateProgramPackageTypes VALUES ( 'MSP', 'Windows Installer Patch (.msp)' )
 INSERT INTO UpdateProgramPackageTypes VALUES ( 'ExeDotNet', '.NET Framework Update (.exe)' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageTypes
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The release types that retrieved from the 'releaseType' attribute of the 'package' element in update.mum file in the update program package file.
 --
@@ -36,7 +47,7 @@ INSERT INTO UpdateProgramPackageTypes VALUES ( 'ExeDotNet', '.NET Framework Upda
 CREATE TABLE UpdateProgramPackageReleaseTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the release type.
     Name NVARCHAR(16) NOT NULL,
@@ -45,7 +56,7 @@ CREATE TABLE UpdateProgramPackageReleaseTypes
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -56,6 +67,17 @@ INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Hotfix', 'Hotfix' )
 INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Update', 'Update' )
 INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Security Update', 'Security Update' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageReleaseTypes
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The restart types that retrieved from the 'restart' attribute of the 'package' element in update.mum file in the update program package file.
 --
@@ -63,7 +85,7 @@ INSERT INTO UpdateProgramPackageReleaseTypes VALUES ( 'Security Update', 'Securi
 CREATE TABLE UpdateProgramPackageRestartTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the restart type.
     Name NVARCHAR(16) NOT NULL,
@@ -72,7 +94,7 @@ CREATE TABLE UpdateProgramPackageRestartTypes
     DisplayName NVARCHAR(16) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -81,6 +103,17 @@ GO
 
 INSERT INTO UpdateProgramPackageRestartTypes VALUES ( 'possible', 'Possible' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageRestartTypes
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The architectures that retrieved from the 'processorArchitecture' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
 --
@@ -88,7 +121,7 @@ INSERT INTO UpdateProgramPackageRestartTypes VALUES ( 'possible', 'Possible' )
 CREATE TABLE UpdateProgramPackageAssemblyIdentityProcessorArchitectures
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the architecture.
     Name NVARCHAR(8) NOT NULL,
@@ -97,7 +130,7 @@ CREATE TABLE UpdateProgramPackageAssemblyIdentityProcessorArchitectures
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -109,6 +142,17 @@ INSERT INTO UpdateProgramPackageAssemblyIdentityProcessorArchitectures VALUES ( 
 INSERT INTO UpdateProgramPackageAssemblyIdentityProcessorArchitectures VALUES ( 'ia64', 'IA64' )
 INSERT INTO UpdateProgramPackageAssemblyIdentityProcessorArchitectures VALUES ( 'arm', 'ARM' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackageAssemblyIdentityProcessorArchitectures
+(
+    Name ASC
+) INCLUDE (
+	Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The applied operating systems that retrieved from the property file in the update program package file.
 --
@@ -116,7 +160,7 @@ INSERT INTO UpdateProgramPackageAssemblyIdentityProcessorArchitectures VALUES ( 
 CREATE TABLE UpdateProgramPackagePropertyAppliesTos
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the applied operating system.
     Name NVARCHAR(16) NOT NULL,
@@ -125,7 +169,7 @@ CREATE TABLE UpdateProgramPackagePropertyAppliesTos
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -139,6 +183,17 @@ INSERT INTO UpdateProgramPackagePropertyAppliesTos VALUES ( 'Windows 6.2', 'Wind
 INSERT INTO UpdateProgramPackagePropertyAppliesTos VALUES ( 'Windows 6.3', 'Windows 6.3 (Windows 8.1)' )
 INSERT INTO UpdateProgramPackagePropertyAppliesTos VALUES ( 'Windows 10.0', 'Windows 10.0 (Windows 10)' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyAppliesTos
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The companies that retrieved from the property file in the update program package file.
 --
@@ -146,7 +201,7 @@ INSERT INTO UpdateProgramPackagePropertyAppliesTos VALUES ( 'Windows 10.0', 'Win
 CREATE TABLE UpdateProgramPackagePropertyCompanies
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the company.
     Name NVARCHAR(25) NOT NULL,
@@ -155,7 +210,7 @@ CREATE TABLE UpdateProgramPackagePropertyCompanies
     DisplayName NVARCHAR(25) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -164,6 +219,17 @@ GO
 
 INSERT INTO UpdateProgramPackagePropertyCompanies VALUES ( 'Microsoft Corporation', 'Microsoft Corporation' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyCompanies
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The installation types that retrieved from the property file in the update program package file.
 --
@@ -171,7 +237,7 @@ INSERT INTO UpdateProgramPackagePropertyCompanies VALUES ( 'Microsoft Corporatio
 CREATE TABLE UpdateProgramPackagePropertyInstallationTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the install type.
     Name NVARCHAR(8) NOT NULL,
@@ -180,7 +246,7 @@ CREATE TABLE UpdateProgramPackagePropertyInstallationTypes
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -189,6 +255,17 @@ GO
 
 INSERT INTO UpdateProgramPackagePropertyInstallationTypes VALUES ( 'FULL', 'Full' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyInstallationTypes
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The installer engines that retrieved from the property file in the update program package file.
 --
@@ -196,7 +273,7 @@ INSERT INTO UpdateProgramPackagePropertyInstallationTypes VALUES ( 'FULL', 'Full
 CREATE TABLE UpdateProgramPackagePropertyInstallerEngines
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the installer engine.
     Name NVARCHAR(40) NOT NULL,
@@ -205,7 +282,7 @@ CREATE TABLE UpdateProgramPackagePropertyInstallerEngines
     DisplayName NVARCHAR(40) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -214,6 +291,17 @@ GO
 
 INSERT INTO UpdateProgramPackagePropertyInstallerEngines VALUES ( 'Component Based Servicing - WUSA.exe', 'Component Based Servicing - WUSA.exe' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyInstallerEngines
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The languages that retrieved from the property file in the update program package file.
 --
@@ -221,7 +309,7 @@ INSERT INTO UpdateProgramPackagePropertyInstallerEngines VALUES ( 'Component Bas
 CREATE TABLE UpdateProgramPackagePropertyLanguages
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the language.
     Name NVARCHAR(8) NOT NULL,
@@ -230,7 +318,7 @@ CREATE TABLE UpdateProgramPackagePropertyLanguages
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -239,6 +327,17 @@ GO
 
 INSERT INTO UpdateProgramPackagePropertyLanguages VALUES ( 'ALL', 'All' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyLanguages
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The package types that retrieved from the property file in the update program package file.
 --
@@ -246,7 +345,7 @@ INSERT INTO UpdateProgramPackagePropertyLanguages VALUES ( 'ALL', 'All' )
 CREATE TABLE UpdateProgramPackagePropertyPackageTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the package type.
     Name NVARCHAR(16) NOT NULL,
@@ -255,7 +354,7 @@ CREATE TABLE UpdateProgramPackagePropertyPackageTypes
     DisplayName NVARCHAR(16) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -266,6 +365,17 @@ INSERT INTO UpdateProgramPackagePropertyPackageTypes VALUES ( 'Hotfix', 'Hotfix'
 INSERT INTO UpdateProgramPackagePropertyPackageTypes VALUES ( 'Update', 'Update' )
 INSERT INTO UpdateProgramPackagePropertyPackageTypes VALUES ( 'Security Update', 'Security Update' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyPackageTypes
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The architecture names that retrieved from the property file in the update program package file.
 --
@@ -273,7 +383,7 @@ INSERT INTO UpdateProgramPackagePropertyPackageTypes VALUES ( 'Security Update',
 CREATE TABLE UpdateProgramPackagePropertyProcessorArchitectures
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the architecture.
     Name NVARCHAR(8) NOT NULL,
@@ -282,7 +392,7 @@ CREATE TABLE UpdateProgramPackagePropertyProcessorArchitectures
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -294,6 +404,17 @@ INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'amd64',
 INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'ia64', 'IA64' )
 INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'arm', 'ARM' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProcessorArchitectures
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The product names that retrieved from the property file in the update program package file.
 --
@@ -301,7 +422,7 @@ INSERT INTO UpdateProgramPackagePropertyProcessorArchitectures VALUES ( 'arm', '
 CREATE TABLE UpdateProgramPackagePropertyProductNames
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the product name.
     Name NVARCHAR(16) NOT NULL,
@@ -310,7 +431,7 @@ CREATE TABLE UpdateProgramPackagePropertyProductNames
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -324,6 +445,17 @@ INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 6.2', 'Wi
 INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 6.3', 'Windows 6.3 (Windows 8.1)' )
 INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 10.0', 'Windows 10.0 (Windows 10)' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProductNames
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The update program packages.
 --
@@ -331,7 +463,7 @@ INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 10.0', 'W
 CREATE TABLE UpdateProgramPackages
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The file hash of the package file.
     FileHash BINARY(20) UNIQUE NOT NULL,
@@ -340,16 +472,16 @@ CREATE TABLE UpdateProgramPackages
     FileName NVARCHAR(256) NOT NULL,
 
     -- The package type of the package file.
-    UpdateProgramPackageTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageTypes (Id),
+    UpdateProgramPackageTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageTypes (Id),
 
     -- The KB number of the update program package that retrieved from the 'identifier' attribute of the 'package' element in update.mum file in the update program package file.
     UpdateProgramPackageKbNumber INT,
 
     -- The release type ID.
-    UpdateProgramPackageReleaseTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageReleaseTypes (Id),
+    UpdateProgramPackageReleaseTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageReleaseTypes (Id),
 
     -- The restart type ID.
-    UpdateProgramPackageRestartTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageRestartTypes (Id),
+    UpdateProgramPackageRestartTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageRestartTypes (Id),
 
     -- The name that retrieved from the 'name' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
     AssemblyIdentityName NVARCHAR(256),
@@ -370,7 +502,7 @@ CREATE TABLE UpdateProgramPackages
     AssemblyIdentityLanguage NVARCHAR(64),
 
     -- The architecture ID.
-    AssemblyIdentityProcessorArchitectureId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageAssemblyIdentityProcessorArchitectures (Id),
+    AssemblyIdentityProcessorArchitectureId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageAssemblyIdentityProcessorArchitectures (Id),
 
     -- The publicKey token that retrieved from the 'publicKeyToken' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
     AssemblyIdentityPublicKeyToken NCHAR(16),
@@ -379,22 +511,22 @@ CREATE TABLE UpdateProgramPackages
     PropertyApplicabilityInfo NVARCHAR(256),
 
     -- The applies to ID.
-    PropertyAppliesToId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyAppliesTos (Id),
+    PropertyAppliesToId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyAppliesTos (Id),
 
     -- The build date that retrieved from the 'Build Date' in the package property file.
     PropertyBuildDate DATE,
 
     -- The company ID.
-    PropertyCompanyId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyCompanies (Id),
+    PropertyCompanyId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyCompanies (Id),
 
     -- The file version that retrieved from the 'File Version' in the package property file.
     PropertyFileVersion SMALLINT,
 
     -- The installation type ID.
-    PropertyInstallationTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallationTypes (Id),
+    PropertyInstallationTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallationTypes (Id),
 
     -- The installation engine ID.
-    PropertyInstallerEngineId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallerEngines (Id),
+    PropertyInstallerEngineId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallerEngines (Id),
 
     -- The installer version that retrieved from the 'Installer Version' in the package property file.
     PropertyInstallerVersion NCHAR(8),
@@ -403,19 +535,23 @@ CREATE TABLE UpdateProgramPackages
     PropertyKbArticleNumber INT,
 
     -- The language ID.
-    PropertyLanguageId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyLanguages (Id),
+    PropertyLanguageId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyLanguages (Id),
 
     -- The package type ID.
-    PropertyPackageTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyPackageTypes (Id),
+    PropertyPackageTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyPackageTypes (Id),
 
     -- The processor architecture ID.
-    PropertyProcessorArchitectureId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProcessorArchitectures (Id),
+    PropertyProcessorArchitectureId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProcessorArchitectures (Id),
 
     -- The product name ID.
-    PropertyProductNameId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProductNames (Id),
+    PropertyProductNameId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProductNames (Id),
 
     -- The support link that retrieved from the 'Support Link' in the package property file.
-    PropertySupportLink NVARCHAR(256)
+    PropertySupportLink NVARCHAR(256),
+
+    PRIMARY KEY CLUSTERED (
+        Id ASC
+    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -478,7 +614,7 @@ CREATE NONCLUSTERED INDEX index_FileName ON UpdateProgramPackages
 CREATE TABLE ModuleFileTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the module file type.
     Name NVARCHAR(8) NOT NULL,
@@ -487,7 +623,7 @@ CREATE TABLE ModuleFileTypes
     DisplayName NVARCHAR(32) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -496,6 +632,17 @@ GO
 
 INSERT INTO ModuleFileTypes VALUES ( 'exe', 'Executable File (.exe)' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileTypes
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The processor architectures of module file that retrieved by detection algorithm. (e.g. file header, etc)
 --
@@ -503,7 +650,7 @@ INSERT INTO ModuleFileTypes VALUES ( 'exe', 'Executable File (.exe)' )
 CREATE TABLE ModuleFileProcessorArchitectures
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the processor architecture of module file.
     Name NVARCHAR(8) NOT NULL,
@@ -512,7 +659,7 @@ CREATE TABLE ModuleFileProcessorArchitectures
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -521,6 +668,17 @@ GO
 
 INSERT INTO ModuleFileProcessorArchitectures VALUES ( 'amd64', 'AMD64' )
 
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileProcessorArchitectures
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
+
 --
 -- The module file informations.
 --
@@ -528,8 +686,11 @@ INSERT INTO ModuleFileProcessorArchitectures VALUES ( 'amd64', 'AMD64' )
 CREATE TABLE ModuleFiles
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE
+    Id INT IDENTITY(0, 1),
 
+    PRIMARY KEY CLUSTERED (
+        Id ASC
+    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
@@ -542,19 +703,24 @@ GO
 CREATE TABLE UpdateProgramPackage_ModuleFiles
 (
     -- The update program package ID.
-    UpdateProgramPackageId INT FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
+    UpdateProgramPackageId INT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
 
     -- The module file ID.
-    ModuleFileId INT FOREIGN KEY REFERENCES ModuleFiles (Id),
+    ModuleFileId INT NOT NULL FOREIGN KEY REFERENCES ModuleFiles (Id),
 
-    UNIQUE CLUSTERED (
-        UpdateProgramPackageId ASC,
-        ModuleFileId           ASC
-    )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_UpdateProgramPackageId_ModuleFileId ON UpdateProgramPackage_ModuleFiles
+(
+    UpdateProgramPackageId ASC,
+    ModuleFileId ASC
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The processed update program package histories.
@@ -563,10 +729,10 @@ GO
 CREATE TABLE UpdateProgramPackageHistories
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The update program package ID.
-    UpdateProgramPackageId INT FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
+    UpdateProgramPackageId INT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
 
     -- The date of processed.
     ProcessedDate DATE NOT NULL,
@@ -575,12 +741,24 @@ CREATE TABLE UpdateProgramPackageHistories
     AdditionalData NVARCHAR(400) NOT NULL DEFAULT N''
 
     PRIMARY KEY CLUSTERED (
-        UpdateProgramPackageId ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for UpdateProgramPackageId
+CREATE NONCLUSTERED INDEX index_UpdateProgramPackageId ON UpdateProgramPackageHistories
+(
+    UpdateProgramPackageId ASC
+) INCLUDE (
+    Id,
+    ProcessedDate,
+    AdditionalData
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 -- Index for AdditionalData
 CREATE NONCLUSTERED INDEX index_AdditionalData ON UpdateProgramPackageHistories
@@ -610,7 +788,7 @@ CREATE NONCLUSTERED INDEX index_ProcessedDate ON UpdateProgramPackageHistories
 CREATE TABLE ProcessTargets
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The file path to the process target file.
     FilePath NVARCHAR(4000) NOT NULL,
@@ -700,7 +878,7 @@ INSERT INTO LogClassifications VALUES ( 3, 'Debug' )
 CREATE TABLE Logs
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The timestamp of the log record as UTC.
     TimestampUtc DATETIME2(0) NOT NULL,
@@ -709,7 +887,7 @@ CREATE TABLE Logs
     Source NVARCHAR(20) NOT NULL, 
 
     -- The classification of the log record.
-    ClassificationId SMALLINT FOREIGN KEY REFERENCES LogClassifications (Id),
+    ClassificationId SMALLINT NOT NULL FOREIGN KEY REFERENCES LogClassifications (Id),
 
     -- The log message.
     Message NVARCHAR(400) NOT NULL,
@@ -718,15 +896,30 @@ CREATE TABLE Logs
     Data NVARCHAR(4000) NOT NULL DEFAULT N'',
 
     -- The process target ID. This may NULL, for example, the log is generated before the process target insertion. 
-    ProcessTargetId INT
+    ProcessTargetId INT FOREIGN KEY REFERENCES ProcessTargets (Id),
 
     PRIMARY KEY CLUSTERED (
-        TimestampUtc ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for TimestampUtc
+CREATE NONCLUSTERED INDEX index_TimestampUtc ON Logs
+(
+    TimestampUtc ASC
+) INCLUDE (
+    Id,
+    Source,
+    ClassificationId,
+    Message,
+    Data,
+    ProcessTargetId
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 -- Index for Source
 CREATE NONCLUSTERED INDEX index_Source ON Logs
