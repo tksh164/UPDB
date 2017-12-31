@@ -13,6 +13,10 @@ namespace UpdateProgramDB.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Log>()
+                .Property(e => e.TimestampUtc)
+                .HasPrecision(0);
+
             modelBuilder.Entity<ProcessTarget>()
                 .Property(e => e.InsertedTimestampUtc)
                 .HasPrecision(0);
