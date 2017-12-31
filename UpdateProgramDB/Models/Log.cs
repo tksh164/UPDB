@@ -25,7 +25,7 @@ namespace UpdateProgramDB.Models
         [StringLength(400)]
         public string Message { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = true)]
         [StringLength(4000)]
         public string Data { get; set; }
 
