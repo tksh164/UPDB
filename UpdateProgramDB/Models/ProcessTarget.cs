@@ -18,20 +18,21 @@ namespace UpdateProgramDB.Models
         [StringLength(400)]
         public string AdditionalData { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         public bool IsProcessStarted { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         public bool IsProcessCompleted { get; set; }
 
+        [Required]
         [Column(TypeName = "datetime2")]
         public DateTime InsertedTimestampUtc { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         [Column(TypeName = "datetime2")]
         public DateTime ProcessStartedTimestampUtc { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         [Column(TypeName = "datetime2")]
         public DateTime ProcessCompletedTimestampUtc { get; set; }
     }

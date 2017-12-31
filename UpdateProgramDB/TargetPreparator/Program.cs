@@ -62,7 +62,11 @@ namespace UpdateProgramDB.TargetPreparator
                 {
                     FilePath = filePath,
                     AdditionalData = additionalData,
+                    IsProcessStarted = false,
+                    IsProcessCompleted = false,
                     InsertedTimestampUtc = DateTime.UtcNow,
+                    ProcessStartedTimestampUtc = DateTime.MinValue,
+                    ProcessCompletedTimestampUtc = DateTime.MinValue,
                 });
                 db.SaveChanges();
             }
