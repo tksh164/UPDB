@@ -614,7 +614,7 @@ CREATE NONCLUSTERED INDEX index_FileName ON UpdateProgramPackages
 CREATE TABLE ModuleFileTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the module file type.
     Name NVARCHAR(8) NOT NULL,
@@ -623,7 +623,7 @@ CREATE TABLE ModuleFileTypes
     DisplayName NVARCHAR(32) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -631,6 +631,17 @@ CREATE TABLE ModuleFileTypes
 GO
 
 INSERT INTO ModuleFileTypes VALUES ( 'exe', 'Executable File (.exe)' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileTypes
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The processor architectures of module file that retrieved by detection algorithm. (e.g. file header, etc)
