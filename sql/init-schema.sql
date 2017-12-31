@@ -887,7 +887,7 @@ CREATE TABLE Logs
     Source NVARCHAR(20) NOT NULL, 
 
     -- The classification of the log record.
-    ClassificationId SMALLINT FOREIGN KEY REFERENCES LogClassifications (Id),
+    ClassificationId SMALLINT NOT NULL FOREIGN KEY REFERENCES LogClassifications (Id),
 
     -- The log message.
     Message NVARCHAR(400) NOT NULL,
@@ -896,7 +896,7 @@ CREATE TABLE Logs
     Data NVARCHAR(4000) NOT NULL DEFAULT N'',
 
     -- The process target ID. This may NULL, for example, the log is generated before the process target insertion. 
-    ProcessTargetId INT
+    ProcessTargetId INT FOREIGN KEY REFERENCES ProcessTargets (Id),
 
     PRIMARY KEY CLUSTERED (
         Id ASC
