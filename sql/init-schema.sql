@@ -472,16 +472,16 @@ CREATE TABLE UpdateProgramPackages
     FileName NVARCHAR(256) NOT NULL,
 
     -- The package type of the package file.
-    UpdateProgramPackageTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageTypes (Id),
+    UpdateProgramPackageTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageTypes (Id),
 
     -- The KB number of the update program package that retrieved from the 'identifier' attribute of the 'package' element in update.mum file in the update program package file.
     UpdateProgramPackageKbNumber INT,
 
     -- The release type ID.
-    UpdateProgramPackageReleaseTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageReleaseTypes (Id),
+    UpdateProgramPackageReleaseTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageReleaseTypes (Id),
 
     -- The restart type ID.
-    UpdateProgramPackageRestartTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageRestartTypes (Id),
+    UpdateProgramPackageRestartTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageRestartTypes (Id),
 
     -- The name that retrieved from the 'name' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
     AssemblyIdentityName NVARCHAR(256),
@@ -502,7 +502,7 @@ CREATE TABLE UpdateProgramPackages
     AssemblyIdentityLanguage NVARCHAR(64),
 
     -- The architecture ID.
-    AssemblyIdentityProcessorArchitectureId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackageAssemblyIdentityProcessorArchitectures (Id),
+    AssemblyIdentityProcessorArchitectureId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackageAssemblyIdentityProcessorArchitectures (Id),
 
     -- The publicKey token that retrieved from the 'publicKeyToken' attribute of the 'assemblyIdentity' element in package XML file in the update program package file.
     AssemblyIdentityPublicKeyToken NCHAR(16),
@@ -511,22 +511,22 @@ CREATE TABLE UpdateProgramPackages
     PropertyApplicabilityInfo NVARCHAR(256),
 
     -- The applies to ID.
-    PropertyAppliesToId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyAppliesTos (Id),
+    PropertyAppliesToId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyAppliesTos (Id),
 
     -- The build date that retrieved from the 'Build Date' in the package property file.
     PropertyBuildDate DATE,
 
     -- The company ID.
-    PropertyCompanyId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyCompanies (Id),
+    PropertyCompanyId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyCompanies (Id),
 
     -- The file version that retrieved from the 'File Version' in the package property file.
     PropertyFileVersion SMALLINT,
 
     -- The installation type ID.
-    PropertyInstallationTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallationTypes (Id),
+    PropertyInstallationTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallationTypes (Id),
 
     -- The installation engine ID.
-    PropertyInstallerEngineId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallerEngines (Id),
+    PropertyInstallerEngineId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyInstallerEngines (Id),
 
     -- The installer version that retrieved from the 'Installer Version' in the package property file.
     PropertyInstallerVersion NCHAR(8),
@@ -535,16 +535,16 @@ CREATE TABLE UpdateProgramPackages
     PropertyKbArticleNumber INT,
 
     -- The language ID.
-    PropertyLanguageId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyLanguages (Id),
+    PropertyLanguageId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyLanguages (Id),
 
     -- The package type ID.
-    PropertyPackageTypeId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyPackageTypes (Id),
+    PropertyPackageTypeId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyPackageTypes (Id),
 
     -- The processor architecture ID.
-    PropertyProcessorArchitectureId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProcessorArchitectures (Id),
+    PropertyProcessorArchitectureId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProcessorArchitectures (Id),
 
     -- The product name ID.
-    PropertyProductNameId SMALLINT FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProductNames (Id),
+    PropertyProductNameId SMALLINT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackagePropertyProductNames (Id),
 
     -- The support link that retrieved from the 'Support Link' in the package property file.
     PropertySupportLink NVARCHAR(256),
