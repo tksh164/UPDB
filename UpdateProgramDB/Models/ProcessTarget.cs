@@ -14,7 +14,7 @@ namespace UpdateProgramDB.Models
         [StringLength(4000)]
         public string FilePath { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = true)]
         [StringLength(400)]
         public string AdditionalData { get; set; }
 
