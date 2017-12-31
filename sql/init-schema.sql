@@ -703,10 +703,10 @@ GO
 CREATE TABLE UpdateProgramPackage_ModuleFiles
 (
     -- The update program package ID.
-    UpdateProgramPackageId INT FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
+    UpdateProgramPackageId INT NOT NULL FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
 
     -- The module file ID.
-    ModuleFileId INT FOREIGN KEY REFERENCES ModuleFiles (Id),
+    ModuleFileId INT NOT NULL FOREIGN KEY REFERENCES ModuleFiles (Id),
 
 ) WITH (
     DATA_COMPRESSION = PAGE
