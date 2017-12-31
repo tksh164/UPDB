@@ -309,7 +309,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyInsta
 CREATE TABLE UpdateProgramPackagePropertyLanguages
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the language.
     Name NVARCHAR(8) NOT NULL,
@@ -318,7 +318,7 @@ CREATE TABLE UpdateProgramPackagePropertyLanguages
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -326,6 +326,17 @@ CREATE TABLE UpdateProgramPackagePropertyLanguages
 GO
 
 INSERT INTO UpdateProgramPackagePropertyLanguages VALUES ( 'ALL', 'All' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyLanguages
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The package types that retrieved from the property file in the update program package file.
