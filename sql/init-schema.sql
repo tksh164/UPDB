@@ -422,7 +422,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProce
 CREATE TABLE UpdateProgramPackagePropertyProductNames
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the product name.
     Name NVARCHAR(16) NOT NULL,
@@ -431,7 +431,7 @@ CREATE TABLE UpdateProgramPackagePropertyProductNames
     DisplayName NVARCHAR(64) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -444,6 +444,17 @@ INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'IE11-Windows6.1',
 INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 6.2', 'Windows 6.2 (Windows 8)' )
 INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 6.3', 'Windows 6.3 (Windows 8.1)' )
 INSERT INTO UpdateProgramPackagePropertyProductNames VALUES ( 'Windows 10.0', 'Windows 10.0 (Windows 10)' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyProductNames
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The update program packages.
