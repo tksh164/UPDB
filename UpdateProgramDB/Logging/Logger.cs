@@ -28,6 +28,9 @@ namespace UpdateProgramDB.Logging
         {
             using (var db = new UpdateProgramDbContext())
             {
+                // Debug log.
+                db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
                 db.Logs.Add(new Log()
                 {
                     TimestampUtc = DateTime.UtcNow,

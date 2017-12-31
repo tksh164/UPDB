@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using UpdateProgramDB.Models;
+using UpdateProgramDB.Logging;
 
 namespace UpdateProgramDB.TargetPreparator
 {
@@ -8,6 +9,8 @@ namespace UpdateProgramDB.TargetPreparator
     {
         static void Main(string[] args)
         {
+            Logger.WriteLog("Start");
+
             // Set unhandled exception trapper.
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionTrapper);
 
@@ -29,15 +32,23 @@ namespace UpdateProgramDB.TargetPreparator
                 try
                 {
                     // Add a process target.
-                    AddProcessTarget(NormalizeFilePath(filePath), NormalizeAdditionalData(additionalData));
+                    var normalizedFilePath = NormalizeFilePath(filePath);
+                    var normalizedAdditionalData = NormalizeAdditionalData(additionalData);
+                    AddProcessTarget(normalizedFilePath, normalizedAdditionalData);
+
+                    Logger.WriteLog(LogClassification.Information, "Added a process target.", string.Format(@"FilePath:""{0}"", AdditinalData:""{1}""", normalizedFilePath, normalizedAdditionalData));
                 }
                 catch (Exception ex)
                 {
-                    Console.Error.WriteLine(@"Exception: ", filePath);
-                    var exceptionStackText = BuildExceptionStackText(ex);
-                    Console.Error.WriteLine(exceptionStackText);
+                    StringBuilder builder = new StringBuilder();
+                    builder.AppendLine(string.Format(@"Exception on ""{0}""", filePath));
+                    builder.AppendLine();
+                    builder.AppendLine(BuildExceptionStackText(ex));
+                    Logger.WriteLog(LogClassification.Error, "An exception was thrown on adding a process target.", builder.ToString());
                 }
             }
+
+            Logger.WriteLog("End");
         }
 
         private static string NormalizeFilePath(string filePath)
