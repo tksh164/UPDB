@@ -237,7 +237,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyCompa
 CREATE TABLE UpdateProgramPackagePropertyInstallationTypes
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the install type.
     Name NVARCHAR(8) NOT NULL,
@@ -246,7 +246,7 @@ CREATE TABLE UpdateProgramPackagePropertyInstallationTypes
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -254,6 +254,17 @@ CREATE TABLE UpdateProgramPackagePropertyInstallationTypes
 GO
 
 INSERT INTO UpdateProgramPackagePropertyInstallationTypes VALUES ( 'FULL', 'Full' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON UpdateProgramPackagePropertyInstallationTypes
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The installer engines that retrieved from the property file in the update program package file.
