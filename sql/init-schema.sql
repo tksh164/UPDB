@@ -650,7 +650,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileTypes
 CREATE TABLE ModuleFileProcessorArchitectures
 (
     -- ID
-    Id SMALLINT IDENTITY(0, 1) UNIQUE,
+    Id SMALLINT IDENTITY(0, 1),
 
     -- The name of the processor architecture of module file.
     Name NVARCHAR(8) NOT NULL,
@@ -659,7 +659,7 @@ CREATE TABLE ModuleFileProcessorArchitectures
     DisplayName NVARCHAR(8) NOT NULL,
 
     PRIMARY KEY CLUSTERED (
-        Name ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
@@ -667,6 +667,17 @@ CREATE TABLE ModuleFileProcessorArchitectures
 GO
 
 INSERT INTO ModuleFileProcessorArchitectures VALUES ( 'amd64', 'AMD64' )
+
+-- Index for Name
+CREATE UNIQUE NONCLUSTERED INDEX index_Name ON ModuleFileProcessorArchitectures
+(
+    Name ASC
+) INCLUDE (
+    Id,
+    DisplayName
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 --
 -- The module file informations.
