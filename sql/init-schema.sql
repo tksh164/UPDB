@@ -729,7 +729,7 @@ CREATE UNIQUE NONCLUSTERED INDEX index_UpdateProgramPackageId_ModuleFileId ON Up
 CREATE TABLE UpdateProgramPackageHistories
 (
     -- ID
-    Id INT IDENTITY(0, 1) UNIQUE,
+    Id INT IDENTITY(0, 1),
 
     -- The update program package ID.
     UpdateProgramPackageId INT FOREIGN KEY REFERENCES UpdateProgramPackages (Id),
@@ -741,12 +741,24 @@ CREATE TABLE UpdateProgramPackageHistories
     AdditionalData NVARCHAR(400) NOT NULL DEFAULT N''
 
     PRIMARY KEY CLUSTERED (
-        UpdateProgramPackageId ASC
+        Id ASC
     )
 ) WITH (
     DATA_COMPRESSION = PAGE
 )
 GO
+
+-- Index for UpdateProgramPackageId
+CREATE NONCLUSTERED INDEX index_UpdateProgramPackageId ON UpdateProgramPackageHistories
+(
+    UpdateProgramPackageId ASC
+) INCLUDE (
+    Id,
+    ProcessedDate,
+    AdditionalData
+) WITH (
+    DATA_COMPRESSION = PAGE
+)
 
 -- Index for AdditionalData
 CREATE NONCLUSTERED INDEX index_AdditionalData ON UpdateProgramPackageHistories
