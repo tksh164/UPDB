@@ -21,6 +21,14 @@ namespace UpdateProgramDB.TargetPreparator
                 additionalData = args[0];
             }
 
+            // Add process targets from stdin.
+            AddProcessTargetsFromStdin(additionalData);
+
+            Logger.WriteLog("End");
+        }
+
+        private static void AddProcessTargetsFromStdin(string additionalData)
+        {
             while (true)
             {
                 // Retrieve the file path from console.
@@ -47,8 +55,6 @@ namespace UpdateProgramDB.TargetPreparator
                     Logger.WriteLog(LogClassification.Error, "An exception was thrown on adding a process target.", builder.ToString());
                 }
             }
-
-            Logger.WriteLog("End");
         }
 
         private static string NormalizeFilePath(string filePath)
