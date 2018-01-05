@@ -43,7 +43,7 @@ namespace UpdateProgramDB.TargetPreparator
                     StringBuilder builder = new StringBuilder();
                     builder.AppendLine(string.Format(@"Exception on ""{0}""", filePath));
                     builder.AppendLine();
-                    builder.AppendLine(ExceptionHelper.BuildExceptionStackText(ex));
+                    builder.AppendLine(ExceptionHelper.BuildExceptionStackTraceText(ex));
                     Logger.WriteLog(LogClassification.Error, "An exception was thrown on adding a process target.", builder.ToString());
                 }
             }

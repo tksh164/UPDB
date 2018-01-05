@@ -5,7 +5,7 @@ namespace UpdateProgramDB.TargetPreparator
 {
     internal static class ExceptionHelper
     {
-        public static string BuildExceptionStackText(Exception exception)
+        public static string BuildExceptionStackTraceText(Exception exception)
         {
             var builder = new StringBuilder();
 
@@ -28,7 +28,7 @@ namespace UpdateProgramDB.TargetPreparator
         public static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
         {
             var ex = (Exception)e.ExceptionObject;
-            var exceptionStackText = BuildExceptionStackText(ex);
+            var exceptionStackText = BuildExceptionStackTraceText(ex);
             Console.Error.WriteLine(exceptionStackText);
         }
     }
