@@ -12,7 +12,7 @@ namespace UpdateProgramDB.TargetPreparator
             Logger.WriteLog("Start");
 
             // Set unhandled exception trapper.
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionTrapper);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(ExceptionHelper.UnhandledExceptionTrapper);
 
             // Retrieve the additional data from the command-line parameter.
             var additionalData = string.Empty;
@@ -21,6 +21,14 @@ namespace UpdateProgramDB.TargetPreparator
                 additionalData = args[0];
             }
 
+            // Add process targets from stdin.
+            AddProcessTargetsFromStdin(additionalData);
+
+            Logger.WriteLog("End");
+        }
+
+        private static void AddProcessTargetsFromStdin(string additionalData)
+        {
             while (true)
             {
                 // Retrieve the file path from console.
@@ -40,15 +48,14 @@ namespace UpdateProgramDB.TargetPreparator
                 }
                 catch (Exception ex)
                 {
+                    // Log the exception details.
                     StringBuilder builder = new StringBuilder();
                     builder.AppendLine(string.Format(@"Exception on ""{0}""", filePath));
                     builder.AppendLine();
-                    builder.AppendLine(BuildExceptionStackText(ex));
+                    builder.AppendLine(ExceptionHelper.BuildExceptionStackTraceText(ex));
                     Logger.WriteLog(LogClassification.Error, "An exception was thrown on adding a process target.", builder.ToString());
                 }
             }
-
-            Logger.WriteLog("End");
         }
 
         private static string NormalizeFilePath(string filePath)
@@ -81,33 +88,6 @@ namespace UpdateProgramDB.TargetPreparator
                 });
                 db.SaveChanges();
             }
-        }
-
-        private static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
-        {
-            var ex = (Exception)e.ExceptionObject;
-            var exceptionStackText = BuildExceptionStackText(ex);
-            Console.Error.WriteLine(exceptionStackText);
-        }
-
-        private static string BuildExceptionStackText(Exception exception)
-        {
-            var builder = new StringBuilder();
-
-            var ex = exception;
-            while (true)
-            {
-                builder.AppendFormat(@"{0}: {1}", ex.GetType().FullName, ex.Message);
-                builder.AppendLine();
-                builder.AppendLine(ex.StackTrace);
-
-                if (ex.InnerException == null) break;
-
-                ex = ex.InnerException;
-                builder.AppendLine(@"--- Inner exception is below ---");
-            }
-
-            return builder.ToString();
         }
     }
 }
