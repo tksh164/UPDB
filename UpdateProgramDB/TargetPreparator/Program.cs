@@ -48,6 +48,7 @@ namespace UpdateProgramDB.TargetPreparator
                 }
                 catch (Exception ex)
                 {
+                    // Log the exception details.
                     StringBuilder builder = new StringBuilder();
                     builder.AppendLine(string.Format(@"Exception on ""{0}""", filePath));
                     builder.AppendLine();
